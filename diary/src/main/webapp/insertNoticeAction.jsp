@@ -1,5 +1,4 @@
 <%@ page language = "java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "jakarta.security.auth.message.callback.PrivateKeyCallback.Request"%>
 <%@ page import = "java.sql.Connection" %>
 <%@ page import = "java.sql.DriverManager" %>
 <%@ page import = "java.sql.PreparedStatement" %>
@@ -65,13 +64,14 @@
 		FROM selct값을 구하기 위한 테이블
 		WHERE 조건
 		*/
-	String sql = "insert into notice(notice_title, notice_content, notice_writer, createdate, updatedate) values(?,?,?,now(),now())";
+	String sql = "insert into notice(notice_title, notice_content, notice_writer, notice_pw, createdate, updatedate) values(?,?,?,?,now(),now())";
 	// sql 쿼리문이 DB로 전송됨
 	PreparedStatement stmt = conn.prepareStatement(sql);
 	// ? 4개
 	stmt.setString(1, noticeTitle);
 	stmt.setString(2, noticeContent);
 	stmt.setString(3, noticeWriter);
+	stmt.setString(4, noticePw);
 	// conn.commit(); //conn.setAutoCommit(true); 디폴트값이 true라 자동 commit되어 생략 가능
 	// 3) 디버깅
 	System.out.println(stmt + " <-- insertNoticeAction sql");
